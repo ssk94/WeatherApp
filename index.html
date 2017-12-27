@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html ng-app="weatherApp">
+<head>
+	   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>Weather App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+
+
+
+</head>
+<body ng-controller="weatherController" data-ng-init="init()">
+    <nav class=" nav navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">WeatherApp</a>
+            </div>
+            <form class="navbar-form navbar-right" ng-submit="getWeather()">
+                <div class="form-group search-city">
+                    <input type="text" class="form-control" ng-model="cityName" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+    </nav>
+
+
+
+<div class="container">
+
+<div class="row">
+        <div class="col-md-12">
+            <div class="row">
+
+                <div class="col-md-8 text-center main-block">
+                     <div class="row">
+                         <div class="col-md-6">
+                             <h3 class="city_name">{{data.name}}</h3>
+                         </div>
+
+                         <div class="col-md-6 main_weather_block">
+                             
+                             <p class="main_weather">{{data.main.temp | degreeFilter | number:2 }}&deg;C</p>
+                         </div>
+                     </div>
+
+                     
+
+                     <div class="row">
+                         <div class="col-md-6">
+                             <span class="border-span">Time : <span>{{date | date:'hh:mm:ss a'}}</span></span>
+                         </div>
+
+                         <div class="col-md-6">
+                             <span class="border-span">Date : <span> {{date | date:"dd.MMM.y" }}</span></span> 
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-md-12 text-center">
+                            <div class="row text-center image_block">
+                                 <span><img ng-src='http://openweathermap.org/img/w/{{data.weather[0].icon}}.png' class="image_weather"></span>
+                            </div>
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-md-12 text-center">
+                            <div class="col-md-6">
+                                <span class="border-span">Max Temperature : <span>{{data.main.temp_max | degreeFilter | number:2}} &deg;C</span></span>
+                            </div>
+
+                            <div class="col-md-6">
+                               <span class="border-span"> Min Temperature : <span>{{data.main.temp_min | degreeFilter | number:2}} &deg;C</span></span>
+                            </div>
+                             
+                            
+                         </div>
+                     </div>
+
+                </div>
+
+                <div class="col-md-4 text-center">
+                
+                    <div class="bs">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item">
+                                <div class="row">
+                                    <span class="col-md-6">
+                                        Pressure
+                                    </span>
+
+                                    <span class="col-md-6">
+                                         <span class="badge">{{data.main.pressure}} hpa</span>
+                                    </span>
+                                </div>
+                               
+                            </a>
+                            <a href="#" class="list-group-item">
+
+                                <div class="row">
+                                    <span class="col-md-6">
+                                        Wind Speed
+                                    </span>
+
+                                    <span class="col-md-6">
+                                         <span class="badge">calm {{data.wind.speed}} m/s</span>
+                                    </span>
+                                </div>
+                            </a>
+
+                            <a href="#" class="list-group-item">
+
+                                <div class="row">
+                                    <span class="col-md-6">
+                                       Wind Degree
+                                    </span>
+
+                                    <span class="col-md-6">
+                                         <span class="badge">calm {{data.wind.speed}} m/s</span>
+                                    </span>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item">
+
+                                <div class="row">
+                                    <span class="col-md-6">
+                                       Humidity
+                                    </span>
+
+                                    <span class="col-md-6">
+                                         <span class="badge">{{data.main.humidity}} %</span>
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                      <div class="col-md-12 rising">
+                <p class="text-center todays_weather" style="color:#fbfbfb;">Sunrise And Sunset</p>
+                <div class="row text-center">
+                    <div class="col-lg-6 sun-rise-set">
+                <div class="row"> <span class="tooltiptext">Sunrise</span></div>
+                <div class="row"><span class="sunrise">
+                <img src="images/sunrise.png" style="width: 90px;"> <div class="row" style="color: #efff00; font-weight: 600;"> {{data.sys.sunrise | timestampToTime}}</div>
+                </span>
+                </div>
+            </div>
+            <div class="col-lg-6 sun-rise-set">
+                <div class="row"> <span class="tooltiptext">Sunset</span></div>
+                <div class="row">
+                    <span class="sunset">
+                <img src="images/sunset.png"  style="    width: 90px;"> <div class="row" style="color: #f9933c; font-weight: 600;"> {{data.sys.sunset | timestampToTime}}</div>
+                </span>
+                </div>
+            </div>
+                </div>
+            </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+<hr class="container-fluid">
+
+<div class="row" style="height: auto;">
+    <div class="row text-center" style="margin-bottom: 31px;">
+        <p><span class="more_details">More details</span></p>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-7 parent">
+                <p class="text-center todays_weather">Today's Weather</p>
+                <div class="child">
+                     <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="nextData in nextData">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>{{nextData.dt_txt | dateFilter }}</p>
+                            </div>
+
+                            <div class="col-md-4">
+                            <p class="img-margin"><img ng-src='http://openweathermap.org/img/w/{{nextData.weather[0].icon}}.png'></p>  
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>{{nextData.main.temp | degreeFilter | number:2}}&deg;C</p>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+                </div>
+               
+            </div>
+<!-- 
+            <div class="col-md-4">
+                <p class="text-center todays_weather">Sunrise And Sunset</p>
+                <div class="row text-center">
+                    <div class="col-lg-6 sun-rise-set">
+                <div class="row"> <span class="tooltiptext">Sunrise</span></div>
+                <div class="row"><span class="sunrise">
+                <img src="images/sunrise.png" style="    width: 90px;"> <div class="row"> {{data.sys.sunrise | timestampToTime}}</div>
+                </span>
+                </div>
+            </div>
+            <div class="col-lg-6 sun-rise-set">
+                <div class="row"> <span class="tooltiptext">Sunset</span></div>
+                <div class="row">
+                    <span class="sunset">
+                <img src="images/sunset.png"  style="    width: 90px;"> <div class="row"> {{data.sys.sunset | timestampToTime}}</div>
+                </span>
+                </div>
+            </div>
+                </div>
+            </div> -->
+
+            <div class="col-md-5 col_5_height">
+                <p class="text-center todays_weather">Next Seven Day's Weather</p>
+                <ul class="list-group space_up">
+                    <li class="list-group-item" ng-repeat="sevenDays in sevenDays">
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{sevenDays.dt | timeStampToDay}}
+                            </div>
+
+                            <div class="col-md-3">
+                                <img ng-src='http://openweathermap.org/img/w/{{sevenDays.weather[0].icon}}.png'>
+                            </div>
+
+                            <div class="col-md-3">
+                                {{sevenDays.temp.max | degreeFilter | number:2}}&deg;C
+                            </div>
+
+                            <div class="col-md-3">
+                                {{sevenDays.temp.min | degreeFilter | number:2}}&deg;C
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--        <div class="row bgimg">
+        <div class="container">
+            <div class="col-lg-6 left-side">
+                <div class="row left-top">
+                    <div class="col-lg-6 inside-left-side">
+                        <h3>{{data.name}}</h3>
+                        <p>{{date | date:'hh:mm:ss a'}}</p>
+                    </div>
+                    <div class="col-lg-6 inside-right-side">
+                        <h3>{{data.main.temp | degreeFilter | number:2 }}&deg;C</h3>
+                    </div>
+                </div>
+                <div class="row left-bottom">
+                    <div class="col-lg-3 date">
+                        <span> {{date | date:'MM-dd'}}</span>
+                    </div>
+                    <div class="col-lg-3 status">
+                        {{data.weather[0].description | uppercase}}
+                    </div>
+                    <div class="col-lg-6 max-min">
+                        <span><i class="fa fa fa-angle-up" aria-hidden="true"></i>{{data.main.temp_max | degreeFilter | number:2}} &deg;C  </span><span><i class="fa fa-angle-down" aria-hidden="true"></i>{{data.main.temp_min | degreeFilter | number:2}} &deg;C</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 right-side">
+                <div class="col-lg-4 details-icon">
+                    <img ng-src='http://openweathermap.org/img/w/{{data.weather[0].icon}}.png' class="img-resize">
+                </div>
+                <div class="col-lg-8 main-table">
+                    <h2>Details</h2>
+
+                    <table class="table">
+
+                        <tbody>
+                            <tr>
+                                <td>Pressure</td>
+                                <td>{{data.main.pressure}} hpa</td>
+                            </tr>
+                            <tr>
+                                <td>Humidity</td>
+                                <td>{{data.main.humidity}} %</td>
+                            </tr>
+                            <tr>
+                                <td>Wind Speed</td>
+                                <td>calm {{data.wind.speed}} m/s</td>
+                            </tr>
+                            <tr>
+                                <td>Wind Degree</td>
+                                <td>{{data.wind.deg}} &deg;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-12 next-data">
+                <ul>
+                    <li class="side slidebar" ng-repeat="nextData in nextData">
+                        <p>{{nextData.dt_txt | dateFilter }}</p>
+                        <p class="img-margin"><img ng-src='http://openweathermap.org/img/w/{{nextData.weather[0].icon}}.png'></p>
+                        <p>{{nextData.main.temp | degreeFilter | number:2}}&deg;C</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+ -->
+
+
+
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/filters.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+
+</body>
+</html>

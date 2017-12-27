@@ -1,0 +1,150 @@
+body{
+	font-family: 'Muli', sans-serif;
+}
+
+.city_name{
+	font-family: 'Bungee', cursive;
+}
+
+.details_blocks{
+	    margin: 10px;
+    font-size: 18px;
+}
+
+.details_item_border{
+	    border: 1px solid #ddd;
+    border-radius: 9px;
+        padding: 7px 40px 7px 40px;
+}
+
+	.list-group{
+		/*width: 200px;*/
+	}
+    .bs{
+    	    margin: 20px 0 15px 0;
+    }
+
+.list-group-item{
+	    color: #000;
+    background-color: #fff;
+}
+
+.list-group-item:hover{
+	    background-color: #3a98da !important;
+    color: #fff;
+    font-weight: 600;
+}
+
+.main-block{
+	margin-top: 20px;
+	margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-image: url("../images/222.gif");
+    /*background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7));*/
+
+    
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-block .row{
+	    padding: 20px;
+}
+
+.border-span{
+	    border: 1px solid transparent;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #5254499c;
+    color: #fff;
+}
+
+.main_weather{
+	height: 70px;
+    width: 70px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    border: 1px solid transparent;
+    padding-top: 22px;
+    color: #fff;
+   background-color: #5254499c;
+}
+
+.main_weather_block{
+    padding-left: 147px;
+}
+
+.nextdata{
+    
+        height: 499px;
+    overflow-y: scroll;
+}
+
+.parent{
+    height: 560px;
+    overflow: hidden;
+
+}
+
+.child{
+    height: 99%;
+        margin-top: 35px;
+
+    overflow: auto;
+    padding-right: 15px;
+}
+::-webkit-scrollbar {
+display: none;
+}
+
+.image_block{
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+
+.image_weather{
+        border: 1px solid transparent;
+    border-radius: 50px;
+    background-color: #0000009c;
+}
+
+.more_details{
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5%;
+    font-size: 21px;
+}
+
+.todays_weather{
+        font-size: 19px;
+    font-weight: 600;
+    color: #726ab1;
+}
+
+.rising{
+    /*background-image: url("../images/Hd2.jpg");*/
+        background: #b7b4b4;
+    margin: 0 0px 0 0;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.tooltiptext{
+        font-weight: 600;
+    font-size: 14px;
+}
+
+.space_up{
+        margin-top: 35px;
+
+}
